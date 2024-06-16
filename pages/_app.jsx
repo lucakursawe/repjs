@@ -12,6 +12,7 @@ function MyApp({ Component, pageProps }) {
         <Header />
         <main className="flex-grow">
           <Component {...pageProps} />
+          <SpeedInsights />
         </main>
         <Footer />
       </div>
