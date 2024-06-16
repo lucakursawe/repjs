@@ -6,6 +6,7 @@ import { useUser } from '@supabase/auth-helpers-react';
 import { motion } from 'framer-motion';
 
 export default function E1RMCalculation() {
+  const [exercise, setExercise] = useState('Squat'); // Zustand für die Übungsauswahl
   const [reps, setReps] = useState(''); // Zustand für Wiederholungen
   const [rpe, setRpe] = useState(''); // Zustand für RPE
   const [weightKg, setWeightKg] = useState(''); // Zustand für Gewicht in kg
@@ -17,12 +18,13 @@ export default function E1RMCalculation() {
 
     const e1rm = calculateE1RM(parseFloat(reps), parseFloat(rpe), parseFloat(weightKg)); // Berechne E1RM
     if (e1rm !== null) {
-      let resultMessage = `Your Estimated One Rep Max (E1RM) is: ${e1rm.toFixed(2)} kg`; // Ergebnisnachricht
+      let resultMessage = `Your Estimated One Rep Max (E1RM) for ${exercise} is: ${e1rm.toFixed(2)} kg`; // Ergebnisnachricht
       if (user) {
         const { data, error } = await supabase
           .from('e1rm')
           .insert([{
             user_id: user.id,
+            exercise,
             reps: parseFloat(reps),
             rpe: parseFloat(rpe),
             weightKg: parseFloat(weightKg),
@@ -62,7 +64,8 @@ export default function E1RMCalculation() {
     if (rpeChart[reps] && rpeChart[reps][rpe]) {
       const e1rmPercentage = rpeChart[reps][rpe]; // Prozentsatz des E1RM aus der Tabelle
       const e1rmValue = weightKg / (e1rmPercentage / 100); // Berechne E1RM
-      return e1rmValue;
+      // rounded to 2.5 kg increments
+      return e1rmValue - (e1rmValue % 2.5);
     } else {
       return null;
     }
@@ -71,6 +74,22 @@ export default function E1RMCalculation() {
   return (
     <div className="flex flex-wrap justify-center">
       <form onSubmit={handleSubmit} className="bg-white shadow-xl rounded-lg px-10 pt-8 pb-10 mb-4 max-w-lg w-full">
+        <div className="mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="exercise">Exercise:</label>
+          <select
+            className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="exercise"
+            name="exercise"
+            value={exercise}
+            onChange={(e) => setExercise(e.target.value)}
+            aria-label="Select Exercise"
+          >
+            <option value="Squat">Squat</option>
+            <option value="Bench">Bench</option>
+            <option value="Deadlift">Deadlift</option>
+          </select>
+        </div>
+
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="weightKg">Weight (kg):</label>
           <input
