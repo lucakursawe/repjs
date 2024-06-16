@@ -57,18 +57,20 @@ export default function Profile() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-8 bg-white">
-      <h2 className="text-5xl font-extrabold mb-8 text-black">Welcome, {user.email}!</h2> {/* Welcome message for logged in users */}
-      <div className="bg-white shadow-xl rounded-lg px-10 pt-8 pb-10 mb-4 max-w-lg w-full">
-        <h4 className="text-lg font-semibold text-black mb-4">Total calculations: {calculations.length}</h4> {/* Total number of calculations */}
+    <div className="flex flex-col items-center justify-center min-h-screen py-4 px-2 bg-white">
+      <h2 className="text-3xl md:text-5xl font-extrabold mb-4 md:mb-8 text-black text-center">Welcome, {user.email}!</h2> {/* Welcome message for logged in users */}
+      <div className="bg-white shadow-xl rounded-lg p-4 md:p-10 mb-4 w-full max-w-full md:max-w-4xl"> {/* Adjusted max-width for wider chart on larger screens */}
+        <h4 className="text-lg font-semibold text-black mb-4 text-center">Total calculations: {calculations.length}</h4> {/* Total number of calculations */}
         {loading ? (
-          <p className="text-black">Loading...</p> // Loading state
+          <p className="text-black text-center">Loading...</p> // Loading state
         ) : calculations.length === 0 ? (
-          <p className="text-black">No calculations found.</p> // Message if no calculations are found
+          <p className="text-black text-center">No calculations found.</p> // Message if no calculations are found
         ) : (
           <>
-            <Line data={getChartData()} />
-            <ul>
+            <div className="w-full h-64 md:h-96">
+              <Line data={getChartData()} options={{ maintainAspectRatio: false }} />
+            </div>
+            <ul className="mt-4">
               {calculations.map(calc => (
                 <li key={calc.id} className="mb-4 p-4 bg-white rounded-lg shadow-sm">
                   <div className="popover-container">
