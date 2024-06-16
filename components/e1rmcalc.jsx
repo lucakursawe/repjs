@@ -78,6 +78,7 @@ export default function E1RMCalculation() {
             type="number"
             id="weightKg"
             name="weightKg"
+            step="0.1" // Erlaubt Dezimalwerte
             min="0"
             required
             value={weightKg}
