@@ -3,7 +3,7 @@ import React from 'react';
 const AboutQA = () => {
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">About / Q&A</h1>
+      <h1 className="text-3xl font-bold mb-4">Q&A</h1>
       
       <h2 className="text-2xl font-bold mb-4">What is RPE?</h2>
       <p className="mb-4">

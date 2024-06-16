@@ -56,7 +56,7 @@ export default function Header() {
             ) : (
               <li>
                 <Link href="/auth" className="hover:text-primary transition-colors duration-300">
-                  Sign Up / Login
+                  Login
                 </Link>
               </li>
             )}

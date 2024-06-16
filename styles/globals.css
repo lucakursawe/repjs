@@ -8,36 +8,36 @@
     box-sizing: border-box;
 }
 
+/* Body Styles */
 body {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Jetbrains Mono', monospace;
     font-size: 16px;
     line-height: 1.5;
     color: #333;
-    
 }
 
-/* globals.css or your component-specific CSS */
+/* Global Styles */
 html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 #__next {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ensure min height of viewport */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure min height of viewport */
 }
 
+/* Footer Styles */
 .footer {
-  margin-top: auto; /* Push footer to bottom */
-  background-color: #f8f9fa;
-  text-align: center;
-  padding: 1rem;
+    margin-top: auto; /* Push footer to bottom */
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 1rem;
 }
 
-
-/* Tailwind CSS */
+/* Tailwind CSS Imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -71,14 +71,14 @@ html, body {
     opacity: 1;
 }
 
+/* Tailwind Custom Styles */
 
-
-/* Tailwind Styles */
-
+/* App Container */
 .app {
     @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
 }
 
+/* Button Styles */
 .black_btn {
     @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-mono flex items-center justify-center;
 }
@@ -87,6 +87,7 @@ html, body {
     @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-mono flex items-center justify-center;
 }
 
+/* Text Styles */
 .head_text {
     @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
 }
@@ -107,6 +108,7 @@ html, body {
     @apply mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl;
 }
 
+/* Input Styles */
 .search_input {
     @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-mono pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
 }
@@ -115,10 +117,12 @@ html, body {
     @apply w-7 h-7 rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
 }
 
+/* Glassmorphism Style */
 .glassmorphism {
     @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
 }
 
+/* Layout Styles */
 .prompt_layout {
     @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
 }
@@ -155,6 +159,7 @@ html, body {
     @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
 }
 
+/* Flex Utilities */
 .flex-center {
     @apply flex justify-center items-center;
 }
