@@ -175,3 +175,9 @@ html, body {
 .flex-between {
     @apply flex justify-between items-center;
 }
+
+/* Hide third-party provider buttons */
+.sbui-auth__social-container {
+    display: none;
+  }
+  

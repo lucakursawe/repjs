@@ -1,27 +1,27 @@
-import { useEffect, useState } from 'react';
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
-import { Line } from 'react-chartjs-2';
-import 'chart.js/auto'; // Required for Chart.js v3
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Import arrow icons
-import { useRouter } from 'next/router'; // Import useRouter from Next.js
+import { useEffect, useState } from 'react'; // Importiere useEffect und useState Hooks von React
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'; // Importiere Supabase Auth-Helper
+import { Line } from 'react-chartjs-2'; // Importiere Line-Komponente von react-chartjs-2
+import 'chart.js/auto'; // Erforderlich für Chart.js v3
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Importiere Pfeil-Icons von react-icons
+import { useRouter } from 'next/router'; // Importiere useRouter von Next.js
 
 export default function Profile() {
-  const user = useUser(); // Get user from Supabase Auth
-  const supabaseClient = useSupabaseClient(); // Supabase Client for database access
-  const router = useRouter(); // Initialize router
-  const [calculations, setCalculations] = useState([]); // State for calculations
-  const [loading, setLoading] = useState(true); // State for loading
-  const [exerciseFilter, setExerciseFilter] = useState('Squat'); // State for exercise filter
-  const [expandedId, setExpandedId] = useState(null); // State for toggle
-  const [limit, setLimit] = useState(5); // State for pagination limit
+  const user = useUser(); // Hole den Benutzer von Supabase Auth
+  const supabaseClient = useSupabaseClient(); // Supabase Client für Datenbankzugriff
+  const router = useRouter(); // Initialisiere Router
+  const [calculations, setCalculations] = useState([]); // Zustand für Berechnungen
+  const [loading, setLoading] = useState(true); // Zustand für Ladeanzeige
+  const [exerciseFilter, setExerciseFilter] = useState('Squat'); // Zustand für Übungsfilter
+  const [expandedId, setExpandedId] = useState(null); // Zustand für Umschalten der Details
+  const [limit, setLimit] = useState(5); // Zustand für Paginierungsgrenze
 
   useEffect(() => {
     if (user) {
-      fetchCalculations(); // Fetch calculations if user is logged in
+      fetchCalculations(); // Berechnungen abrufen, wenn Benutzer eingeloggt ist
     } else {
-      setLoading(false); // Stop loading if user is not logged in
+      setLoading(false); // Ladeanzeige beenden, wenn Benutzer nicht eingeloggt ist
     }
-  }, [user, exerciseFilter, limit]); // useEffect runs when user, exerciseFilter or limit changes
+  }, [user, exerciseFilter, limit]); // useEffect läuft, wenn sich Benutzer, Übungsfilter oder Limit ändert
 
   const fetchCalculations = async () => {
     const { data, error } = await supabaseClient
@@ -29,33 +29,33 @@ export default function Profile() {
       .select('*')
       .eq('user_id', user.id)
       .eq('exercise', exerciseFilter)
-      .order('created_at', { ascending: false }) // Fetch the latest calculations
-      .limit(limit); // Apply the limit for pagination
+      .order('created_at', { ascending: false }) // Die neuesten Berechnungen abrufen
+      .limit(limit); // Limit für Paginierung anwenden
 
     if (error) {
-      console.error('Error fetching calculations:', error); // Error handling
+      console.error('Error fetching calculations:', error); // Fehlerbehandlung
     } else {
-      setCalculations(data); // Set calculations
+      setCalculations(data); // Berechnungen setzen
     }
-    setLoading(false); // Stop loading
+    setLoading(false); // Ladeanzeige beenden
   };
 
   const toggleDetails = (id) => {
-    setExpandedId(expandedId === id ? null : id); // Toggle the details view
+    setExpandedId(expandedId === id ? null : id); // Detailsansicht umschalten
   };
 
   const loadMore = () => {
-    setLimit(limit + 5); // Increase the limit by 5
+    setLimit(limit + 5); // Limit um 5 erhöhen
   };
 
   const handleLogout = async () => {
-    await supabaseClient.auth.signOut(); // Sign out user
-    router.push('/auth'); // Redirect to auth page
+    await supabaseClient.auth.signOut(); // Benutzer ausloggen
+    router.push('/auth'); // Umleiten zur Authentifizierungsseite
   };
 
   const getChartData = () => {
-    const labels = calculations.map(calc => new Date(calc.created_at).toLocaleDateString()).reverse();
-    const data = calculations.map(calc => calc.e1rm).reverse();
+    const labels = calculations.map(calc => new Date(calc.created_at).toLocaleDateString()).reverse(); // Erstelle Labels für das Diagramm
+    const data = calculations.map(calc => calc.e1rm).reverse(); // Erstelle Daten für das Diagramm
     return {
       labels,
       datasets: [
@@ -73,15 +73,15 @@ export default function Profile() {
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen py-8 bg-white">
-        <h2 className="text-2xl font-bold text-black">Please log in to view your profile.</h2> {/* Message for not logged in users */}
+        <h2 className="text-2xl font-bold text-black">Please log in to view your profile.</h2> {/* Nachricht für nicht eingeloggte Benutzer */}
       </div>
     );
   }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-4 px-2 bg-white">
-      <h2 className="text-3xl md:text-5xl font-extrabold mb-4 md:mb-8 text-black text-center">Welcome, {user.email}!</h2> {/* Welcome message for logged in users */}
-      <div className="bg-white shadow-xl rounded-lg p-4 md:p-10 mb-4 w-full max-w-full md:max-w-4xl"> {/* Adjusted max-width for wider chart on larger screens */}
+      <h2 className="text-3xl md:text-5xl font-extrabold mb-4 md:mb-8 text-black text-center">Welcome, {user.email}!</h2> {/* Begrüßungsnachricht für eingeloggte Benutzer */}
+      <div className="bg-white shadow-xl rounded-lg p-4 md:p-10 mb-4 w-full max-w-full md:max-w-4xl"> {/* Angepasste maximale Breite für breiteres Diagramm auf größeren Bildschirmen */}
         <div className="flex justify-between items-center mb-6">
           <div>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="exerciseFilter">Filter by Exercise:</label>
@@ -99,15 +99,15 @@ export default function Profile() {
             </select>
           </div>
         </div>
-        <h4 className="text-lg font-semibold text-black mb-4 text-center">Total calculations for {exerciseFilter}: {calculations.length}</h4> {/* Total number of calculations */}
+        <h4 className="text-lg font-semibold text-black mb-4 text-center">Total calculations for {exerciseFilter}: {calculations.length}</h4> {/* Gesamtanzahl der Berechnungen */}
         {loading ? (
-          <p className="text-black text-center">Loading...</p> // Loading state
+          <p className="text-black text-center">Loading...</p> // Ladeanzeige
         ) : calculations.length === 0 ? (
-          <p className="text-black text-center">No calculations found.</p> // Message if no calculations are found
+          <p className="text-black text-center">No calculations found.</p> // Nachricht, wenn keine Berechnungen gefunden wurden
         ) : (
           <>
             <div className="w-full h-64 md:h-96">
-              <Line data={getChartData()} options={{ maintainAspectRatio: false }} />
+              <Line data={getChartData()} options={{ maintainAspectRatio: false }} /> {/* Liniendiagramm mit Daten */}
             </div>
             
             <ul className="mt-4">
@@ -146,7 +146,7 @@ export default function Profile() {
       </div>
       <button
             onClick={handleLogout}
-            className=" text-black px-4 py-2 rounded hover:text-primary-orange transition-colors duration-300 focus:outline-none"
+            className="text-black px-4 py-2 rounded hover:text-primary-orange transition-colors duration-300 focus:outline-none"
           >
             Logout
           </button>
