@@ -14,10 +14,10 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-2">Quick Links</h3>
             <ul>
               <li className="mb-2">
-                <Link href="/" className="text-sm hover:text-primary transition-colors duration-300">Home</Link>
+                <Link href="/" className="text-sm hover:text-primary-orange transition-colors duration-300">Home</Link>
               </li>
               <li className="mb-2">
-                <Link href="/about" className="text-sm hover:text-primary transition-colors duration-300">About</Link>
+                <Link href="/about" className="text-sm hover:text-primary-orange transition-colors duration-300">About</Link>
               </li>
             </ul>
           </div>
@@ -25,17 +25,17 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-2">Follow us</h3>
             <ul className="flex space-x-4">
               <li>
-                <a href="https://instagram.com/lucakursawe" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-primary transition-colors duration-300">
+                <a href="https://instagram.com/lucakursawe" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-primary-orange transition-colors duration-300">
                   <FaInstagram size={24} />
                 </a>
               </li>
               <li>
-                <a href="https://linkedin.com/lucakursawe" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-primary transition-colors duration-300">
+                <a href="https://linkedin.com/lucakursawe" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-primary-orange transition-colors duration-300">
                   <FaLinkedin size={24} />
                 </a>
               </li>
               <li>
-                <a href="https://github.com/lucakursawe" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-primary transition-colors duration-300">
+                <a href="https://github.com/lucakursawe" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-primary-orange transition-colors duration-300">
                   <FaGithub size={24} />
                 </a>
               </li>

@@ -3,10 +3,12 @@ import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto'; // Required for Chart.js v3
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Import arrow icons
+import { useRouter } from 'next/router'; // Import useRouter from Next.js
 
 export default function Profile() {
   const user = useUser(); // Get user from Supabase Auth
   const supabaseClient = useSupabaseClient(); // Supabase Client for database access
+  const router = useRouter(); // Initialize router
   const [calculations, setCalculations] = useState([]); // State for calculations
   const [loading, setLoading] = useState(true); // State for loading
   const [exerciseFilter, setExerciseFilter] = useState('Squat'); // State for exercise filter
@@ -46,6 +48,11 @@ export default function Profile() {
     setLimit(limit + 5); // Increase the limit by 5
   };
 
+  const handleLogout = async () => {
+    await supabaseClient.auth.signOut(); // Sign out user
+    router.push('/auth'); // Redirect to auth page
+  };
+
   const getChartData = () => {
     const labels = calculations.map(calc => new Date(calc.created_at).toLocaleDateString()).reverse();
     const data = calculations.map(calc => calc.e1rm).reverse();
@@ -62,7 +69,6 @@ export default function Profile() {
       ]
     };
   };
-  
 
   if (!user) {
     return (
@@ -76,20 +82,22 @@ export default function Profile() {
     <div className="flex flex-col items-center justify-center min-h-screen py-4 px-2 bg-white">
       <h2 className="text-3xl md:text-5xl font-extrabold mb-4 md:mb-8 text-black text-center">Welcome, {user.email}!</h2> {/* Welcome message for logged in users */}
       <div className="bg-white shadow-xl rounded-lg p-4 md:p-10 mb-4 w-full max-w-full md:max-w-4xl"> {/* Adjusted max-width for wider chart on larger screens */}
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="exerciseFilter">Filter by Exercise:</label>
-          <select
-            className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
-            id="exerciseFilter"
-            name="exerciseFilter"
-            value={exerciseFilter}
-            onChange={(e) => setExerciseFilter(e.target.value)}
-            aria-label="Select Exercise Filter"
-          >
-            <option value="Squat">Squat</option>
-            <option value="Bench">Bench</option>
-            <option value="Deadlift">Deadlift</option>
-          </select>
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="exerciseFilter">Filter by Exercise:</label>
+            <select
+              className="shadow appearance-none border border-black rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-primary-orange"
+              id="exerciseFilter"
+              name="exerciseFilter"
+              value={exerciseFilter}
+              onChange={(e) => setExerciseFilter(e.target.value)}
+              aria-label="Select Exercise Filter"
+            >
+              <option value="Squat">Squat</option>
+              <option value="Bench">Bench</option>
+              <option value="Deadlift">Deadlift</option>
+            </select>
+          </div>
         </div>
         <h4 className="text-lg font-semibold text-black mb-4 text-center">Total calculations for {exerciseFilter}: {calculations.length}</h4> {/* Total number of calculations */}
         {loading ? (
@@ -136,6 +144,12 @@ export default function Profile() {
           </>
         )}
       </div>
+      <button
+            onClick={handleLogout}
+            className=" text-black px-4 py-2 rounded hover:text-primary-orange transition-colors duration-300 focus:outline-none"
+          >
+            Logout
+          </button>
     </div>
   );
 }

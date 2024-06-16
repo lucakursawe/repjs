@@ -1,24 +1,25 @@
 "use client";
 
 import { supabase } from '../utils/supabase';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useUser } from '@supabase/auth-helpers-react';
 import { motion } from 'framer-motion';
 
 export default function E1RMCalculation() {
-  const [exercise, setExercise] = useState('Squat'); // Zustand für die Übungsauswahl
-  const [reps, setReps] = useState(''); // Zustand für Wiederholungen
-  const [rpe, setRpe] = useState(''); // Zustand für RPE
-  const [weightKg, setWeightKg] = useState(''); // Zustand für Gewicht in kg
-  const [result, setResult] = useState(''); // Zustand für das Ergebnis
-  const user = useUser(); // Benutzer aus der Supabase Auth
+  const [exercise, setExercise] = useState('Squat');
+  const [reps, setReps] = useState('');
+  const [rpe, setRpe] = useState('');
+  const [weightKg, setWeightKg] = useState('');
+  const [result, setResult] = useState('');
+  const resultRef = useRef(null);
+  const user = useUser();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const e1rm = calculateE1RM(parseFloat(reps), parseFloat(rpe), parseFloat(weightKg)); // Berechne E1RM
+    const e1rm = calculateE1RM(parseFloat(reps), parseFloat(rpe), parseFloat(weightKg));
     if (e1rm !== null) {
-      let resultMessage = `Your Estimated One Rep Max (E1RM) for ${exercise} is: ${e1rm.toFixed(2)} kg`; // Ergebnisnachricht
+      let resultMessage = `Your Estimated One Rep Max (E1RM) for ${exercise} is: ${e1rm.toFixed(2)} kg`;
       if (user) {
         const { data, error } = await supabase
           .from('e1rm')
@@ -29,20 +30,26 @@ export default function E1RMCalculation() {
             rpe: parseFloat(rpe),
             weightKg: parseFloat(weightKg),
             e1rm: e1rm.toFixed(2)
-          }]); // Speichere Daten in der Supabase
+          }]);
         if (error) {
-          console.error('Error saving data to Supabase:', error); // Fehlerbehandlung
+          console.error('Error saving data to Supabase:', error);
         } else {
           console.log('Data saved successfully:', data);
         }
       } else {
-        resultMessage += '. Please log in to save your calculation and view past results.'; // Hinweis für nicht eingeloggte Benutzer
+        resultMessage += '. Please log in to save your calculation and view past results.';
       }
-      setResult(resultMessage); // Setze Ergebnisnachricht
+      setResult(resultMessage);
     } else {
-      setResult("Invalid Input! Please check your inputs."); // Fehlernachricht bei ungültigen Eingaben
+      setResult("Invalid Input! Please check your inputs.");
     }
   };
+
+  useEffect(() => {
+    if (result) {
+      resultRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [result]);
 
   const calculateE1RM = (reps, rpe, weightKg) => {
     const rpeChart = {
@@ -62,8 +69,8 @@ export default function E1RMCalculation() {
 
     rpe = parseFloat(rpe);
     if (rpeChart[reps] && rpeChart[reps][rpe]) {
-      const e1rmPercentage = rpeChart[reps][rpe]; // Prozentsatz des E1RM aus der Tabelle
-      const e1rmValue = weightKg / (e1rmPercentage / 100); // Berechne E1RM
+      const e1rmPercentage = rpeChart[reps][rpe];
+      const e1rmValue = weightKg / (e1rmPercentage / 100);
       // rounded to 2.5 kg increments
       return e1rmValue - (e1rmValue % 2.5);
     } else {
@@ -75,9 +82,9 @@ export default function E1RMCalculation() {
     <div className="flex flex-wrap justify-center">
       <form onSubmit={handleSubmit} className="bg-white shadow-xl rounded-lg px-10 pt-8 pb-10 mb-4 max-w-lg w-full">
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="exercise">Exercise:</label>
+          <label className="block text-black text-sm font-bold mb-2" htmlFor="exercise">Exercise:</label>
           <select
-            className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="shadow appearance-none border border-black rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-primary-orange"
             id="exercise"
             name="exercise"
             value={exercise}
@@ -91,25 +98,25 @@ export default function E1RMCalculation() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="weightKg">Weight (kg):</label>
+          <label className="block text-black text-sm font-bold mb-2" htmlFor="weightKg">Weight (kg):</label>
           <input
-            className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="shadow appearance-none border border-black rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-primary-orange"
             type="number"
             id="weightKg"
             name="weightKg"
-            step="0.1" // Erlaubt Dezimalwerte
+            step="0.1"
             min="0"
             required
             value={weightKg}
-            onChange={(e) => setWeightKg(e.target.value)} // Update weight
+            onChange={(e) => setWeightKg(e.target.value)}
             aria-label="Weight in kilograms"
           />
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="reps">Reps:</label>
+          <label className="block text-black text-sm font-bold mb-2" htmlFor="reps">Reps:</label>
           <input
-            className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="shadow appearance-none border border-black rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-primary-orange"
             type="number"
             id="reps"
             name="reps"
@@ -117,15 +124,15 @@ export default function E1RMCalculation() {
             max="12"
             required
             value={reps}
-            onChange={(e) => setReps(e.target.value)} // Update reps
+            onChange={(e) => setReps(e.target.value)}
             aria-label="Repetitions"
           />
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="rpe">RPE:</label>
+          <label className="block text-black text-sm font-bold mb-2" htmlFor="rpe">RPE:</label>
           <input
-            className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="shadow appearance-none border border-black rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-primary-orange"
             type="number"
             id="rpe"
             name="rpe"
@@ -134,7 +141,7 @@ export default function E1RMCalculation() {
             step="0.5"
             required
             value={rpe}
-            onChange={(e) => setRpe(e.target.value)} // Update RPE
+            onChange={(e) => setRpe(e.target.value)}
             aria-label="Rate of Perceived Exertion"
           />
         </div>
@@ -154,9 +161,13 @@ export default function E1RMCalculation() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="ml-4 bg-white p-6 rounded-lg shadow-lg"
+          className="ml-4 bg-primary-orange p-6 rounded-lg shadow-lg flex flex-col items-center"
+          ref={resultRef}
         >
-          <h2 className="text-lg font-bold text-primary-orange">{result}</h2>
+          <h2 className="text-2xl font-bold text-white mb-2">Estimated 1RM</h2>
+          <div className="flex items-center justify-center mb-4">
+            <span className="text-white text-lg font-semibold">{result}</span>
+          </div>
         </motion.div>
       )}
     </div>
