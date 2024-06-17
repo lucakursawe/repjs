@@ -17,13 +17,13 @@ const About = () => { // Define the About component
                 <h3 className="text-lg font-bold mb-2 text-primary-orange">Socials</h3> {/* Subheading for social media */}
                 <div className="flex space-x-4"> {/* Flexbox div with space between elements */}
                   <a href="https://linkedin.com/in/lucakursawe" target="_blank" rel="noopener noreferrer">
-                    <FaLinkedin className="h-6 w-6 text-black hover:text-primary-orange"/> {/* LinkedIn icon with hover effect */}
+                    <FaLinkedin className="h-6 w-6 text-black hover:text-primary-orange duration-300"/> {/* LinkedIn icon with hover effect */}
                   </a>
                   <a href="https://github.com/lucakursawe" target="_blank" rel="noopener noreferrer">
-                    <FaGithub className="h-6 w-6 text-black hover:text-primary-orange"/> {/* GitHub icon with hover effect */}
+                    <FaGithub className="h-6 w-6 text-black hover:text-primary-orange duration-300"/> {/* GitHub icon with hover effect */}
                   </a>
                   <a href="https://instagram.com/lucakursawe" target="_blank" rel="noopener noreferrer">
-                    <FaInstagram className="h-6 w-6 text-black hover:text-primary-orange"/> {/* Instagram icon with hover effect */}
+                    <FaInstagram className="h-6 w-6 text-black hover:text-primary-orange duration-300"/> {/* Instagram icon with hover effect */}
                   </a>
                 </div>
               </div>
