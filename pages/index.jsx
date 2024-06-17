@@ -9,7 +9,7 @@ export default function Home() {
           <span className="block text-black">REP.js</span>
         </h1>
         <div className="flex flex-col-reverse lg:flex-row items-start justify-between space-y-6 lg:space-y-0">
-          <div className="lg:w-2/3 space-y-6 mt-2">
+          <div className="lg:w-2/3 space-y-6 mt-8">
             <p className="text-2xl text-black leading-relaxed">
               <span className="font-bold text-primary-orange">REP.js</span> helps you optimize your workouts by calculating your <span className="font-bold text-primary-orange">Estimated One Rep Max (E1RM)</span>.<br />
               Enter your repetitions, RPE, and weight to get real-time feedback on your performance.<br />
