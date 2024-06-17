@@ -8,9 +8,6 @@ module.exports = {
       colors: {
         'primary-orange': '#FF5722', // Custom primary orange color
       },
-      backgroundImage: {
-        'orange-gradient': 'linear-gradient(to right, #FF5722, #FFA726)', // Custom gradient background
-      },
     },
   },
   plugins: [],
