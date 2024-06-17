@@ -1,11 +1,12 @@
-Great, with the information provided, I can help you draft a detailed and comprehensive README for your project. Here it is:
-
----
-
 # REP.js
 
 ## Project Description
 `REP.js` is a web application designed for gym enthusiasts who want to auto-regulate and optimize their training. The application calculates the Estimated One-Rep Max (E1RM) for users based on their input and saves it for future retrieval to track progress over time. The target audience for this project is gym goers who are keen on improving their training efficiency and monitoring their strength progression.
+
+<img width="1440" alt="Bildschirmfoto 2024-06-17 um 18 05 40" src="https://github.com/lucakursawe/repjs/assets/30121038/19b5edda-b0c4-416f-83f5-97557af7ac8b">
+<img width="1440" alt="Bildschirmfoto 2024-06-17 um 18 06 07" src="https://github.com/lucakursawe/repjs/assets/30121038/61a9af72-9d04-4962-a9dd-1bff5234a54a">
+
+
 
 ## Features
 - **E1RM Calculator:** Enter your lift data to calculate your estimated one-rep max.
@@ -57,7 +58,3 @@ If you need to set up the project locally for development purposes, follow these
 
 ## Contributing
 At the moment, contributions are not open as the project is still under development.
-
----
-
-Feel free to adjust any sections as necessary. This README should give a clear and concise overview of your project, its features, and how to use it.
