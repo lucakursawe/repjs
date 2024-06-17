@@ -79,7 +79,7 @@ export default function E1RMCalculation() {
   };
 
   return (
-    <div className="flex flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center items-start mt-4">
       <form onSubmit={handleSubmit} className="bg-white shadow-xl rounded-lg px-10 pt-8 pb-10 mb-4 max-w-lg w-full">
         <div className="mb-6">
           <label className="block text-black text-sm font-bold mb-2" htmlFor="exercise">Exercise:</label>
