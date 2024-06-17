@@ -94,11 +94,11 @@ export default function Profile() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-10 px-6 bg-white">
       <div className="w-full max-w-6xl mx-auto">
-        <h3 className="text-3xl md:text-5xl font-extrabold mb-6 md:mb-10 text-black text-left">Welcome, {user.email}!</h3> 
+        <h3 className="text-3xl md:text-5xl font-extrabold mb-6 md:mb-10 text-black text-left">{user.email}</h3> 
         <div className="bg-white shadow-xl rounded-lg p-6 md:p-10 mb-6 w-full max-w-full md:max-w-4xl">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="exerciseFilter">Filter by Exercise:</label>
+              <label className="block text-black text-sm font-bold mb-2" htmlFor="exerciseFilter">Filter by Exercise:</label>
               <select
                 className="shadow appearance-none border border-black rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-primary-orange"
                 id="exerciseFilter"
@@ -113,11 +113,11 @@ export default function Profile() {
               </select>
             </div>
           </div>
-          <h4 className="text-lg font-semibold text-black mb-4 text-center">Total calculations for {exerciseFilter}: {calculations.length}</h4> 
+          <h4 className="text-lg text-black mb-4 text-left">Total calculations for {exerciseFilter}: {calculations.length}</h4> 
           {loading ? (
             <p className="text-black text-center">Loading...</p>
           ) : calculations.length === 0 ? (
-            <p className="text-black text-center">No calculations found.</p>
+            <p className="text-gray text-center">No calculations found.</p>
           ) : (
             <>
               <div className="w-full h-64 md:h-96">
