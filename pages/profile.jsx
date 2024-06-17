@@ -77,7 +77,7 @@ export default function Profile() {
           data,
           fill: false,
           borderColor: '#FF5722',
-          pointBackgroundColor: '#FF5722',
+          pointBackgroundColor: '#black',
         }
       ]
     };
@@ -86,7 +86,7 @@ export default function Profile() {
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen py-8 bg-white">
-        <h2 className="text-2xl font-bold text-black">Please log in to view your profile.</h2> 
+        <h1 className="text-2xl font-bold text-primary-orange">Please log in to view your profile.</h1> 
       </div>
     );
   }

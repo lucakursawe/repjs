@@ -1,11 +1,14 @@
 import Link from 'next/link'; // Importiere Link-Komponente von Next.js
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'; // Importiere Supabase Auth-Helper
 import { useRouter } from 'next/router'; // Importiere Router von Next.js
+import { useState } from 'react'; // Importiere useState für Zustandsverwaltung
 
 export default function Header() {
   const user = useUser(); // Hole den Benutzer von Supabase Auth
   const supabaseClient = useSupabaseClient(); // Supabase Client für Authentifizierung
   const router = useRouter(); // Next.js Router für Navigation
+
+  const [menuOpen, setMenuOpen] = useState(false); // Zustand für das Burger-Menü
 
   const handleLogout = async () => {
     await supabaseClient.auth.signOut(); // Benutzer ausloggen
@@ -21,39 +24,120 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-black text-white py-4 shadow-md"> {/* Header-Tag mit Klassen für Hintergrundfarbe, Textfarbe, Innenabstand und Schatten */}
-      <div className="container mx-auto flex justify-between items-center px-4"> {/* Container-Div mit Flexbox für zentrierte Ausrichtung und Abstände */}
-        <h1 className="text-2xl font-bold"> {/* Überschrift mit Klassen für Schriftgröße und Fettgedruckt */}
+    <header className="bg-black text-white py-4 shadow-md relative">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        <h1 className="text-2xl font-bold">
           <Link href="/" className="hover:text-primary-orange transition-colors duration-300">
-            REP.js {/* Link zur Startseite mit Hover-Effekt */}
+            REP.js
           </Link>
         </h1>
-        <nav> {/* Navigationsbereich */}
-          <ul className="flex space-x-4"> {/* Ungeordnete Liste mit Flexbox und Abstand zwischen den Listenelementen */}
-            <li> {/* Listenelement */}
+        <button
+          className="lg:hidden block text-white focus:outline-none"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <svg
+            className="w-6 h-6 hover:text-primary-orange transition-colors duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
+          </svg>
+        </button>
+        <nav className="hidden lg:flex lg:items-center lg:space-x-4">
+          <ul className="lg:flex lg:space-x-4 space-y-4 lg:space-y-0">
+            <li>
               <Link href="/" className="hover:text-primary-orange transition-colors duration-300">
-                Home {/* Link zur Startseite */}
+                Home
               </Link>
             </li>
-            <li> {/* Listenelement */}
+            <li>
               <Link href="/about" className="hover:text-primary-orange transition-colors duration-300">
-                About {/* Link zur Über-Seite */}
+                About
               </Link>
             </li>
-            <li> {/* Listenelement */}
+            <li>
               <Link href="/help" className="hover:text-primary-orange transition-colors duration-300">
-                Help {/* Link zur Hilfe-Seite */}
+                Help
               </Link>
             </li>
-            <li> {/* Listenelement */}
+            <li>
               <button
                 onClick={handleProfileClick}
-                className="hover:text-primary-orange transition-colors duration-300 focus:outline-none">
-                Profile {/* Button zum Profil mit Klick-Event und Hover-Effekt */}
+                className="hover:text-primary-orange transition-colors duration-300 focus:outline-none"
+              >
+                Profile
               </button>
             </li>
           </ul>
         </nav>
+      </div>
+      {/* Overlay */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-10"
+          onClick={() => setMenuOpen(false)}
+        ></div>
+      )}
+      {/* Pop-Out Menu */}
+      <div
+        className={`fixed top-0 right-0 h-full w-64 bg-primary-orange text-white transform ${
+          menuOpen ? 'translate-x-0' : 'translate-x-full'
+        } transition-transform duration-300 ease-in-out z-20`}
+      >
+        <button
+          className="text-white focus:outline-none p-4"
+          onClick={() => setMenuOpen(false)}
+        >
+          <svg
+            className="w-6 h-6 hover:text-black transition-colors duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+        <ul className="space-y-4 p-4">
+          <li>
+            <Link href="/" className="hover:text-black transition-colors duration-300" onClick={() => setMenuOpen(false)}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link href="/about" className="hover:text-black transition-colors duration-300" onClick={() => setMenuOpen(false)}>
+              About
+            </Link>
+          </li>
+          <li>
+            <Link href="/help" className="hover:text-black transition-colors duration-300" onClick={() => setMenuOpen(false)}>
+              Help
+            </Link>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                handleProfileClick();
+                setMenuOpen(false);
+              }}
+              className="hover:text-black transition-colors duration-300 focus:outline-none"
+            >
+              Profile
+            </button>
+          </li>
+        </ul>
       </div>
     </header>
   );
