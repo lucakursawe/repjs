@@ -21,6 +21,8 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    width: 100%; /* Ensure no horizontal overflow */
+    overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 #__next {
@@ -179,5 +181,4 @@ html, body {
 /* Hide third-party provider buttons */
 .sbui-auth__social-container {
     display: none;
-  }
-  
+}

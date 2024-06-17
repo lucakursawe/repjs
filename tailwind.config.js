@@ -3,13 +3,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        mono: ['"JetBrains Mono"', 'monospace'],
+        mono: ['"JetBrains Mono"', 'monospace'], // Custom mono font
       },
       colors: {
-        'primary-orange': '#FF5722',
+        'primary-orange': '#FF5722', // Custom primary orange color
       },
       backgroundImage: {
-        'orange-gradient': 'linear-gradient(to right, #FF5722, #FFA726)',
+        'orange-gradient': 'linear-gradient(to right, #FF5722, #FFA726)', // Custom gradient background
       },
     },
   },

@@ -22,7 +22,7 @@ export default function Header() {
 
   return (
     <header className="bg-black text-white py-4 shadow-md"> {/* Header-Tag mit Klassen für Hintergrundfarbe, Textfarbe, Innenabstand und Schatten */}
-      <div className="container mx-auto flex justify-between items-center"> {/* Container-Div mit Flexbox für zentrierte Ausrichtung und Abstände */}
+      <div className="container mx-auto flex justify-between items-center px-4"> {/* Container-Div mit Flexbox für zentrierte Ausrichtung und Abstände */}
         <h1 className="text-2xl font-bold"> {/* Überschrift mit Klassen für Schriftgröße und Fettgedruckt */}
           <Link href="/" className="hover:text-primary-orange transition-colors duration-300">
             REP.js {/* Link zur Startseite mit Hover-Effekt */}
