@@ -154,22 +154,21 @@ export default function E1RMCalculation() {
             Calculate E1RM
           </button>
         </div>
-      </form>
 
-      {result && (
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="ml-4 bg-primary-orange p-6 rounded-lg shadow-lg flex flex-col items-center"
-          ref={resultRef}
-        >
-          <h2 className="text-2xl font-bold text-white mb-2">Estimated 1RM</h2>
-          <div className="flex items-center justify-center mb-4">
-            <span className="text-white text-lg font-semibold">{result}</span>
-          </div>
-        </motion.div>
-      )}
+        {result && (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mt-6 bg-primary-orange p-6 rounded-lg shadow-lg flex flex-col items-center"
+            ref={resultRef}
+          >
+            <h2 className="text-2xl font-bold text-white mb-2">{result}</h2>
+            <div className="flex items-center justify-center mb-4">
+            </div>
+          </motion.div>
+        )}
+      </form>
     </div>
   );
 }
