@@ -94,7 +94,7 @@ export default function Profile() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-10 px-6 bg-white">
       <div className="w-full max-w-6xl mx-auto">
-        <h3 className="text-3xl md:text-5xl font-extrabold mb-6 md:mb-10 text-black text-center">Welcome, {user.email}!</h3> 
+        <h3 className="text-3xl md:text-5xl font-extrabold mb-6 md:mb-10 text-black text-left">Welcome, {user.email}!</h3> 
         <div className="bg-white shadow-xl rounded-lg p-6 md:p-10 mb-6 w-full max-w-full md:max-w-4xl">
           <div className="flex justify-between items-center mb-6">
             <div>
