@@ -51,7 +51,7 @@ If you need to set up the project locally for development purposes, follow these
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/repjs.git
+   git clone https://github.com/lucakursawe/repjs.git
    cd repjs
    ```
 2. **Install dependencies:**
