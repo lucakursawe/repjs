@@ -4,3 +4,5 @@ node_modules
 Präsentation Rep
 .vscode
 .prettiercc
+.DS_Store
+
