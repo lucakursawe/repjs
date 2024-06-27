@@ -1,14 +1,14 @@
 module.exports = {
-  content: ['./{pages,components,auth}/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: ["./{pages,components,auth}/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       fontFamily: {
-        mono: ['"JetBrains Mono"', 'monospace'], // Custom mono font
+        mono: ['"JetBrains Mono"', "monospace"],
       },
       colors: {
-        'primary-orange': '#FF5722', // Custom primary orange color
+        "primary-orange": "#FF5722",
       },
     },
   },
   plugins: [],
-}
+};
