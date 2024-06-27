@@ -19,7 +19,7 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-2">Rep.js</h3>{" "}
             {/* Überschrift für den Abschnitt */}
             <p className="text-sm text-gray-400">
-              © 2024 Rep.js. Alle Rechte vorbehalten.
+              © 2024 Rep.js. All rights reserved.
             </p>{" "}
             {/* Copyright-Text */}
           </div>
@@ -58,7 +58,7 @@ const Footer = () => {
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             {" "}
             {/* Bereich für den dritten Abschnitt */}
-            <h3 className="text-lg font-bold mb-2">Follow us</h3>{" "}
+            <h3 className="text-lg font-bold mb-2">Follow me</h3>{" "}
             {/* Überschrift für Social-Media-Links */}
             <ul className="flex space-x-4">
               {" "}

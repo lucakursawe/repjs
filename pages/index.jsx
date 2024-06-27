@@ -9,7 +9,7 @@ export default function Home() {
         <title>Home - E1RM Calculator</title> {/* Titel der Seite */}
         <meta
           name="description"
-          content="Berechnen Sie Ihre geschätzte maximale Einzelwiederholung (E1RM) basierend auf Wiederholungen, Gewicht und RPE. Verfolgen Sie Ihren Fortschritt und optimieren Sie Ihr Training mit unserer Web-App."
+          content="Calculate your estimated one-rep max (E1RM) based on reps, weight, and RPE. Track your progress and optimize your training with our web app."
         />{" "}
         {/* Meta-Beschreibung */}
       </Head>
@@ -21,7 +21,7 @@ export default function Home() {
             {" "}
             {/* Wrapper für konsistente Breite und zentrierte Ausrichtung */}
             <h1 className="text-4xl sm:text-6xl font-extrabold mb-6 text-primary-orange">
-              Reguliere dein Training mit{" "}
+              Regulate your training with{" "}
               <span className="block text-black">REP.js</span>{" "}
               {/* Überschrift mit speziellen Stil-Klassen */}
             </h1>
@@ -33,52 +33,52 @@ export default function Home() {
                 {/* Bereich für Text auf großem Bildschirm (2/3 Breite) */}
                 <p className="text-2xl text-black leading-relaxed">
                   <span className="font-bold text-primary-orange">REP.js</span>{" "}
-                  hilft Ihnen, Ihre Workouts zu optimieren, indem es Ihre{" "}
+                  helps you optimize your workouts by calculating your{" "}
                   <span className="font-bold text-primary-orange">
-                    geschätzte maximale Einzelwiederholung (E1RM)
-                  </span>{" "}
-                  berechnet.
-                  <br /> {/* Textabschnitte mit speziellen Stil-Klassen */}
-                  Geben Sie Ihre{" "}
-                  <span className="font-bold text-primary-orange">
-                    Wiederholungen
+                    estimated one-rep max (E1RM)
                   </span>
-                  , <span className="font-bold text-primary-orange">RPE</span>{" "}
-                  und{" "}
-                  <span className="font-bold text-primary-orange">Gewicht</span>{" "}
-                  ein, um{" "}
+                  .
+                  <br /> {/* Textabschnitte mit speziellen Stil-Klassen */}
+                  Enter your{" "}
                   <span className="font-bold text-primary-orange">
-                    Echtzeit-Feedback
+                    reps
+                  </span>,{" "}
+                  <span className="font-bold text-primary-orange">RPE</span>,
+                  and{" "}
+                  <span className="font-bold text-primary-orange">weight</span>{" "}
+                  to get{" "}
+                  <span className="font-bold text-primary-orange">
+                    real-time feedback
                   </span>{" "}
-                  zu Ihrer Leistung zu erhalten.
+                  on your performance.
                   <br /> {/* Weitere Textabschnitte */}
-                  Passen Sie Ihre Trainingseinheiten an Ihre aktuellen{" "}
+                  Adjust your workouts to your current{" "}
                   <span className="font-bold text-primary-orange">
-                    Stärken
+                    strengths
                   </span>{" "}
-                  an, um einen{" "}
+                  to ensure{" "}
                   <span className="font-bold text-primary-orange">
-                    stetigen Fortschritt
+                    steady progress
                   </span>{" "}
-                  zu gewährleisten und das{" "}
+                  and minimize the{" "}
                   <span className="font-bold text-primary-orange">
-                    Verletzungsrisiko
-                  </span>{" "}
-                  zu minimieren.
+                    risk of injury
+                  </span>
+                  .
                   <br /> {/* Weitere Textabschnitte */}
-                  Geeignet für alle Fitnesslevel ermöglicht{" "}
+                  Suitable for all fitness levels,{" "}
                   <span className="font-bold text-primary-orange">
                     REP.js
                   </span>{" "}
-                  eine{" "}
+                  allows for{" "}
                   <span className="font-bold text-primary-orange">
-                    effiziente
+                    efficient
                   </span>{" "}
-                  und{" "}
+                  and{" "}
                   <span className="font-bold text-primary-orange">
-                    effektive Autoregulation
+                    effective autoregulation
                   </span>{" "}
-                  Ihres Trainings.
+                  of your training.
                   <br /> {/* Weitere Textabschnitte */}
                 </p>
               </div>

@@ -35,10 +35,10 @@ export default function AuthPage() {
   return (
     <>
       <Head>
-        <title>Anmelden - REP.js</title> {/* Titel der Seite */}
+        <title>Sign In - REP.js</title> {/* Titel der Seite */}
         <meta
           name="description"
-          content="Melden Sie sich an oder registrieren Sie sich, um auf die E1RM Calculator Web-App zuzugreifen und Ihren Fortschritt zu speichern."
+          content="Sign in or register to access the E1RM Calculator Web App and save your progress."
         />{" "}
         {/* Meta-Beschreibung */}
       </Head>
@@ -49,7 +49,7 @@ export default function AuthPage() {
           {" "}
           {/* Maximale Breite, Abstand zwischen den Elementen, Padding, Hintergrund, abgerundete Ecken und Schatten */}
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Melden Sie sich bei Ihrem Konto an
+            Sign in to your account
           </h2>{" "}
           {/* Überschrift mit zentriertem Text, größerer Schrift und Fettdruck */}
           <Auth

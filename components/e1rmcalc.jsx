@@ -1,35 +1,35 @@
 "use client";
 
-import { supabase } from "../utils/supabase"; // Importiere die Supabase-Konfiguration
+import { supabase } from "../utils/supabase"; // Import the Supabase configuration
 import React, { useState, useRef, useEffect } from "react";
-import { useUser } from "@supabase/auth-helpers-react"; // Hook für die Benutzerauthentifizierung von Supabase
-import { motion } from "framer-motion"; // Animationen mit Framer Motion
-import Head from "next/head"; // Head-Element für die Seiten-Metadaten
-import { Line } from "react-chartjs-2"; // Diagramme mit React Chart.js 2
-import CountUp from "react-countup"; // Zahlenticker für Animationen
+import { useUser } from "@supabase/auth-helpers-react"; // Hook for user authentication from Supabase
+import { motion } from "framer-motion"; // Animations with Framer Motion
+import Head from "next/head"; // Head element for page metadata
+import { Line } from "react-chartjs-2"; // Charts with React Chart.js 2
+import CountUp from "react-countup"; // Number ticker for animations
 
 export default function E1RMCalculation() {
-  const [exercise, setExercise] = useState("Squat"); // State für die gewählte Übung
-  const [reps, setReps] = useState(""); // State für die Wiederholungen
-  const [rpe, setRpe] = useState(""); // State für die RPE-Skala
-  const [weightKg, setWeightKg] = useState(""); // State für das Gewicht in Kilogramm
-  const [result, setResult] = useState(null); // State für das Ergebnis der Berechnung
-  const [progress, setProgress] = useState(0); // State für den Fortschritt der Berechnung
-  const resultRef = useRef(null); // Referenz für das Ergebnis-Element
-  const user = useUser(); // Aktuell angemeldeter Benutzer mit dem Supabase-Authentifizierungs-Hook
+  const [exercise, setExercise] = useState("Squat"); // State for selected exercise
+  const [reps, setReps] = useState(""); // State for repetitions
+  const [rpe, setRpe] = useState(""); // State for RPE scale
+  const [weightKg, setWeightKg] = useState(""); // State for weight in kilograms
+  const [result, setResult] = useState(null); // State for calculation result
+  const [progress, setProgress] = useState(0); // State for calculation progress
+  const resultRef = useRef(null); // Reference for result element
+  const user = useUser(); // Currently logged-in user with Supabase authentication hook
 
-  // Funktion zum Absenden des Formulars
+  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Berechnung des geschätzten 1RM
+    // Calculate estimated 1RM
     const e1rm = calculateE1RM(
       parseFloat(reps),
       parseFloat(rpe),
       parseFloat(weightKg)
     );
     if (e1rm !== null) {
-      let resultMessage = `Dein geschätztes 1RM für ${exercise} beträgt: ${e1rm.toFixed(
+      let resultMessage = `Your estimated 1RM for ${exercise} : ${e1rm.toFixed(
         2
       )} kg`;
       if (user) {
@@ -44,29 +44,29 @@ export default function E1RMCalculation() {
           },
         ]);
         if (error) {
-          console.error("Fehler beim Speichern der Daten in Supabase:", error);
+          console.error("Error saving data to database:", error);
         } else {
-          console.log("Daten erfolgreich gespeichert:", data);
+          console.log("Data successfully stored in database", data);
         }
       } else {
         resultMessage +=
-          ". Bitte melde dich an, um deine Berechnung zu speichern und vergangene Ergebnisse anzusehen.";
+          ". Please login to review your calculated data and visualize your progress.";
       }
       setResult(e1rm);
-      setProgress((e1rm / 300) * 100); // Annahme: Maximalwert für die Fortschrittsanzeige ist 300 kg
+      setProgress((e1rm / 300) * 100); // Assuming maximum progress value is 300 kg
     } else {
-      setResult("Ungültige Eingabe! Bitte überprüfe deine Eingaben.");
+      setResult("Invalid input! Please check your inputs.");
     }
   };
 
-  // Effekt, um bei Ergebnis die Ansicht zu scrollen
+  // Effect to scroll to view on result
   useEffect(() => {
     if (result) {
       resultRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [result]);
 
-  // Funktion zur Berechnung des 1RM basierend auf Wiederholungen und RPE
+  // Function to calculate 1RM based on repetitions and RPE
   const calculateE1RM = (reps, rpe, weightKg) => {
     const rpeChart = {
       1: {
@@ -207,7 +207,7 @@ export default function E1RMCalculation() {
     if (rpeChart[reps] && rpeChart[reps][rpe]) {
       const e1rmPercentage = rpeChart[reps][rpe];
       const e1rmValue = weightKg / (e1rmPercentage / 100);
-      // Gerundet auf 2,5 kg Schritte
+      // Rounded to 2.5 kg increments
       return e1rmValue - (e1rmValue % 2.5);
     } else {
       return null;
@@ -217,10 +217,10 @@ export default function E1RMCalculation() {
   return (
     <>
       <Head>
-        <title>E1RM Rechner - REP.js</title>
+        <title>E1RM Calculator - REP.js</title>
         <meta
           name="description"
-          content="Berechne dein geschätztes One Rep Max (1RM) basierend auf deinem letzten Workout-Set. Optimiere dein Krafttraining mit dem 1RM Rechner."
+          content="Calculate your estimated One Rep Max (1RM) based on your last workout set. Optimize your strength training with the 1RM calculator."
         />
       </Head>
       <div className="flex flex-wrap justify-center items-start mt-4">
@@ -233,7 +233,7 @@ export default function E1RMCalculation() {
               className="block text-black text-sm font-bold mb-2"
               htmlFor="exercise"
             >
-              Übung:
+              Exercise:
             </label>
             <select
               className="shadow appearance-none border border-black rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-primary-orange"
@@ -241,11 +241,11 @@ export default function E1RMCalculation() {
               name="exercise"
               value={exercise}
               onChange={(e) => setExercise(e.target.value)}
-              aria-label="Übung auswählen"
+              aria-label="Select exercise"
             >
-              <option value="Squat">Kniebeuge</option>
-              <option value="Bench">Bankdrücken</option>
-              <option value="Deadlift">Kreuzheben</option>
+              <option value="Squat">Squat</option>
+              <option value="Bench">Bench Press</option>
+              <option value="Deadlift">Deadlift</option>
             </select>
           </div>
 
@@ -254,7 +254,7 @@ export default function E1RMCalculation() {
               className="block text-black text-sm font-bold mb-2"
               htmlFor="weightKg"
             >
-              Gewicht (kg):
+              Weight (kg):
             </label>
             <input
               className="shadow appearance-none border border-black rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-primary-orange"
@@ -266,7 +266,7 @@ export default function E1RMCalculation() {
               required
               value={weightKg}
               onChange={(e) => setWeightKg(e.target.value)}
-              aria-label="Gewicht in Kilogramm"
+              aria-label="Weight in kilograms"
             />
           </div>
 
@@ -275,7 +275,7 @@ export default function E1RMCalculation() {
               className="block text-black text-sm font-bold mb-2"
               htmlFor="reps"
             >
-              Wiederholungen:
+              Repetitions:
             </label>
             <input
               className="shadow appearance-none border border-black rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-primary-orange"
@@ -287,7 +287,7 @@ export default function E1RMCalculation() {
               required
               value={reps}
               onChange={(e) => setReps(e.target.value)}
-              aria-label="Anzahl der Wiederholungen"
+              aria-label="Number of repetitions"
             />
           </div>
 
@@ -309,7 +309,7 @@ export default function E1RMCalculation() {
               required
               value={rpe}
               onChange={(e) => setRpe(e.target.value)}
-              aria-label="Rate der gefühlten Anstrengung"
+              aria-label="Rate of perceived exertion"
             />
           </div>
 
@@ -318,7 +318,7 @@ export default function E1RMCalculation() {
               className="bg-primary-orange text-white py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-orange-600"
               type="submit"
             >
-              1RM Berechnen
+              Calculate 1RM
             </button>
           </div>
 
@@ -341,7 +341,7 @@ export default function E1RMCalculation() {
                 ></div>
               </div>
               <div className="flex items-center justify-center mb-4">
-                {/* Zusätzliche Inhalte für das Ergebnis, falls vorhanden */}
+                {/* Additional content for result if any */}
               </div>
             </motion.div>
           )}

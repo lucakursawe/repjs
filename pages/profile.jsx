@@ -13,12 +13,12 @@ export default function Profile() {
   const router = useRouter(); // Verwende useRouter-Hook von Next.js für den Router
   const [calculations, setCalculations] = useState([]); // Zustand für Berechnungen (E1RM) mit leerem Array initialisieren
   const [loading, setLoading] = useState(true); // Zustand für Ladezustand mit true initialisieren
-  const [exerciseFilter, setExerciseFilter] = useState("Squat"); // Zustand für Übungsfilters mit 'Squat' initialisieren
+  const [exerciseFilter, setExerciseFilter] = useState("Squat"); // Zustand für Übungsfilter mit 'Squat' initialisieren
   const [expandedId, setExpandedId] = useState(null); // Zustand für erweiterte ID mit null initialisieren
   const [limit, setLimit] = useState(5); // Zustand für Limit mit 5 initialisieren
 
   useEffect(() => {
-    // Effekt-Hook für Datenabruf und -aktualisierung basierend auf Benutzer, Übungsfilters und Limit
+    // Effekt-Hook für Datenabruf und -aktualisierung basierend auf Benutzer, Übungsfilter und Limit
     if (user) {
       // Wenn ein Benutzer vorhanden ist
       fetchCalculations(); // Berechnungen abrufen
@@ -91,7 +91,7 @@ export default function Profile() {
       labels,
       datasets: [
         {
-          label: `E1RM Entwicklung für ${exerciseFilter}`, // Beschriftung des Diagramms
+          label: `E1RM Development for ${exerciseFilter}`, // Beschriftung des Diagramms
           data,
           fill: false,
           borderColor: "#FF5722",
@@ -108,7 +108,7 @@ export default function Profile() {
         {" "}
         {/* Container für zentrierte Anzeige */}
         <h1 className="text-2xl font-bold text-primary-orange">
-          Bitte melden Sie sich an, um Ihr Profil anzuzeigen.
+          Please sign in to view your profile.
         </h1>{" "}
         {/* Anzeige für Benutzer, der sich anmelden soll */}
       </div>
@@ -118,10 +118,10 @@ export default function Profile() {
   return (
     <>
       <Head>
-        <title>Profil - REP.js</title> {/* Titel für die Profilseite */}
+        <title>Profile - REP.js</title> {/* Titel für die Profilseite */}
         <meta
           name="description"
-          content="Verwalten Sie Ihr Profil, sehen Sie Ihren Fortschritt ein und aktualisieren Sie Ihre persönlichen Informationen in der E1RM Calculator Web-App."
+          content="Manage your profile, view your progress, and update your personal information in the E1RM Calculator Web App."
         />{" "}
         {/* Meta-Beschreibung */}
       </Head>
@@ -146,7 +146,7 @@ export default function Profile() {
                   className="block text-black text-sm font-bold mb-2"
                   htmlFor="exerciseFilter"
                 >
-                  Nach Übung filtern:
+                  Filter by exercise:
                 </label>{" "}
                 {/* Label für Übungsauswahl */}
                 <select
@@ -155,25 +155,23 @@ export default function Profile() {
                   name="exerciseFilter"
                   value={exerciseFilter}
                   onChange={(e) => setExerciseFilter(e.target.value)}
-                  aria-label="Übung filtern"
+                  aria-label="Filter exercise"
                 >
-                  <option value="Squat">Kniebeuge</option>{" "}
+                  <option value="Squat">Squat</option>{" "}
                   {/* Optionen für Übungsauswahl */}
-                  <option value="Bench">Bankdrücken</option>
-                  <option value="Deadlift">Kreuzheben</option>
+                  <option value="Bench">Bench Press</option>
+                  <option value="Deadlift">Deadlift</option>
                 </select>
               </div>
             </div>
             <h4 className="text-lg text-black mb-4 text-left">
-              Gesamtberechnungen für {exerciseFilter}: {calculations.length}
+              Total calculations for {exerciseFilter}: {calculations.length}
             </h4>{" "}
             {/* Anzeige der Gesamtzahl der Berechnungen */}
             {loading ? ( // Wenn geladen wird
-              <p className="text-black text-center">Laden...</p> // Ladeanzeige
+              <p className="text-black text-center">Loading...</p> // Ladeanzeige
             ) : calculations.length === 0 ? ( // Wenn keine Berechnungen vorhanden sind
-              <p className="text-gray text-center">
-                Keine Berechnungen gefunden.
-              </p> // Keine Berechnungen gefunden
+              <p className="text-gray text-center">No calculations found.</p> // Keine Berechnungen gefunden
             ) : (
               // Andernfalls
               <>
@@ -246,15 +244,13 @@ export default function Profile() {
                           <div className="mt-2">
                             <p>
                               <strong className="text-black">
-                                Gewicht (kg):
+                                Weight (kg):
                               </strong>{" "}
                               <strong>{calc.weightKg}</strong>
                             </p>{" "}
                             {/* Gewichtsanzeige */}
                             <p>
-                              <strong className="text-black">
-                                Wiederholungen:
-                              </strong>{" "}
+                              <strong className="text-black">Reps:</strong>{" "}
                               <strong>{calc.reps}</strong>
                             </p>{" "}
                             {/* Anzeige der Wiederholungen */}
@@ -279,7 +275,7 @@ export default function Profile() {
                     >
                       {" "}
                       {/* Button zum Laden weiterer Berechnungen */}
-                      Mehr laden
+                      Load more
                     </button>
                   </div>
                 )}
@@ -290,7 +286,7 @@ export default function Profile() {
             onClick={handleLogout}
             className="text-black px-4 py-2 rounded hover:text-primary-orange transition-colors duration-300 focus:outline-none"
           >
-            Abmelden
+            Logout
           </button>
         </div>
       </div>

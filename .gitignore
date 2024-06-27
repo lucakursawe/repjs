@@ -1,6 +1,6 @@
 node_modules
-.env
+.env.local
 .next
-Präsentation
+Präsentation Rep
 .vscode
 .prettiercc

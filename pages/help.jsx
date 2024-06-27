@@ -6,10 +6,10 @@ const AboutQA = () => {
   return (
     <>
       <Head>
-        <title>F&A - REP.js</title> {/* Titel der Seite */}
+        <title>Q&A - REP.js</title> {/* Titel der Seite */}
         <meta
           name="description"
-          content="Erfahren Sie mehr über Rating Perceived Exertion (RPE), seine Vorteile und wie Sie es in Ihrem Training implementieren können. Finden Sie Tipps für Anfänger und fortgeschrittene Benutzer, um Ihr Training zu optimieren."
+          content="Learn more about Rating Perceived Exertion (RPE), its benefits, and how to implement it into your training. Find tips for beginners and advanced users to optimize your training."
         />{" "}
         {/* Meta-Beschreibung */}
       </Head>
@@ -20,125 +20,119 @@ const AboutQA = () => {
           {" "}
           {/* Wrapper-Div für konsistente Breite und zentrierte Ausrichtung */}
           <h1 className="text-3xl font-bold mb-4 text-primary-orange">
-            Fragen und Antworten
+            Questions and Answers
           </h1>{" "}
           {/* Überschrift mit Klassen für Schriftgröße, Fettdruck und unteren Abstand */}
-          <h2 className="text-2xl font-bold mb-4">Was ist RPE?</h2>{" "}
-          {/* Zwischenüberschrift für die Frage "Was ist RPE?" */}
+          <h2 className="text-2xl font-bold mb-4">What is RPE?</h2>{" "}
+          {/* Zwischenüberschrift für die Frage "What is RPE?" */}
           <p className="mb-4">
             <strong className="text-primary-orange">
               Rating Perceived Exertion (RPE)
             </strong>{" "}
-            ist eine numerische Skala, die verwendet wird, um die Intensität von
-            Übungen zu messen, basierend darauf, wie hart Sie arbeiten.
-            Ursprünglich von Gunnar Borg für das Ausdauertraining entwickelt,
-            wurde sie für das Krafttraining angepasst, um den Aufwand während
-            der Sätze besser zu bewerten.
+            is a numerical scale used to measure the intensity of exercises
+            based on how hard you are working. Originally developed by Gunnar
+            Borg for endurance training, it has been adapted for strength
+            training to better assess effort during sets.
           </p>{" "}
           {/* Erklärung dessen, was RPE ist, mit Betonung auf dem Begriff "Rating Perceived Exertion (RPE)" */}
-          <h2 className="text-2xl font-bold mb-4">Warum RPE verwenden?</h2>{" "}
-          {/* Zwischenüberschrift für die Frage "Warum RPE verwenden?" */}
+          <h2 className="text-2xl font-bold mb-4">Why use RPE?</h2>{" "}
+          {/* Zwischenüberschrift für die Frage "Why use RPE?" */}
           <p className="mb-4">
-            RPE hilft Sportlern, ihre Trainingsbelastung und -intensität
-            effektiver zu steuern. Es ermöglicht Anpassungen basierend auf
-            täglichen Schwankungen in Stärke und Energieleveln und stellt
-            sicher, dass Sie mit der angemessenen Intensität trainieren.
+            RPE helps athletes manage their training load and intensity more
+            effectively. It allows adjustments based on daily fluctuations in
+            strength and energy levels, ensuring you train with the appropriate
+            intensity.
           </p>{" "}
           {/* Erklärung, warum RPE verwendet wird */}
-          <h2 className="text-2xl font-bold mb-4">RPE-Skala</h2>{" "}
-          {/* Zwischenüberschrift für die Frage "RPE-Skala" */}
+          <h2 className="text-2xl font-bold mb-4">RPE Scale</h2>{" "}
+          {/* Zwischenüberschrift für die Frage "RPE Scale" */}
           <p className="mb-4">
-            Die RPE-Skala basiert auf{" "}
+            The RPE scale is based on{" "}
             <strong className="text-primary-orange">
               repetitions in reserve (RIR)
             </strong>{" "}
-            am Ende eines Satzes:
+            at the end of a set:
           </p>{" "}
           {/* Erklärung, dass die RPE-Skala auf "repetitions in reserve (RIR)" basiert */}
           <ul className="mb-4 list-disc list-inside">
             <li>
-              <strong className="text-primary-orange">10 RPE:</strong> Konnte
-              keine weiteren Wiederholungen oder Gewicht ohne Formverlust machen
+              <strong className="text-primary-orange">10 RPE:</strong> Could not
+              do any more reps or add weight without losing form
             </li>
             <li>
-              <strong className="text-primary-orange">9 RPE:</strong> Konnte 1
-              weitere Wiederholung machen
+              <strong className="text-primary-orange">9 RPE:</strong> Could do 1
+              more rep
             </li>
             <li>
-              <strong className="text-primary-orange">8 RPE:</strong> Konnte 2
-              weitere Wiederholungen machen
+              <strong className="text-primary-orange">8 RPE:</strong> Could do 2
+              more reps
             </li>
             <li>
-              <strong className="text-primary-orange">7 RPE:</strong> Konnte 3
-              weitere Wiederholungen machen
+              <strong className="text-primary-orange">7 RPE:</strong> Could do 3
+              more reps
             </li>
             <li>
-              <strong className="text-primary-orange">5-6 RPE:</strong> Konnte
-              4-6 weitere Wiederholungen machen
+              <strong className="text-primary-orange">5-6 RPE:</strong> Could do
+              4-6 more reps
             </li>
             <li>
-              <strong className="text-primary-orange">1-4 RPE:</strong> Sehr
-              leichte bis leichte Anstrengung
+              <strong className="text-primary-orange">1-4 RPE:</strong> Very
+              light to light effort
             </li>
           </ul>{" "}
           {/* Liste der RPE-Skala mit Erklärungen für jedes Level */}
-          <h2 className="text-2xl font-bold mb-4">Vorteile von RPE</h2>{" "}
-          {/* Zwischenüberschrift für die Frage "Vorteile von RPE" */}
-          <p className="mb-4">Die Verwendung von RPE ermöglicht:</p>{" "}
+          <h2 className="text-2xl font-bold mb-4">Benefits of RPE</h2>{" "}
+          {/* Zwischenüberschrift für die Frage "Benefits of RPE" */}
+          <p className="mb-4">Using RPE allows:</p>{" "}
           {/* Einführung in die Liste der Vorteile von RPE */}
           <ul className="mb-4 list-disc list-inside">
             <li>
               <strong className="text-primary-orange">
-                Besseres Ermüdungsmanagement
+                Better fatigue management
               </strong>
             </li>
             <li>
               <strong className="text-primary-orange">
-                Persönliche Trainingsintensität
+                Personalized training intensity
               </strong>
             </li>
             <li>
               <strong className="text-primary-orange">
-                Anpassungen an tägliche Leistungsschwankungen
+                Adjustments to daily performance fluctuations
               </strong>
             </li>
           </ul>{" "}
           {/* Liste der Vorteile von RPE */}
           <h2 className="text-2xl font-bold mb-4">
-            Implementierung von RPE im Training
+            Implementing RPE in Training
           </h2>{" "}
-          {/* Zwischenüberschrift für die Frage "Implementierung von RPE im Training" */}
+          {/* Zwischenüberschrift für die Frage "Implementing RPE in Training" */}
           <p className="mb-4">
-            Um RPE effektiv zu verwenden, schätzen Sie zunächst Ihr RPE nach
-            jedem Satz ein. Mit der Zeit werden Sie genauer im Einschätzen Ihres
-            Aufwandes. Dies hilft Ihnen dabei, die geeignete Belastung für jeden
-            Satz auszuwählen und sicherzustellen, dass Sie effektiv trainieren,
-            ohne zu überlasten oder unterzutrainieren.
+            To effectively use RPE, start by estimating your RPE at the end of
+            each set. Over time, you'll become more accurate in assessing your
+            effort. This helps you select the appropriate load for each set,
+            ensuring you train effectively without overreaching or
+            undertraining.
           </p>{" "}
           {/* Erklärung, wie man RPE im Training implementiert */}
-          <h2 className="text-2xl font-bold mb-4">Tipps für Anfänger</h2>{" "}
-          {/* Zwischenüberschrift für die Frage "Tipps für Anfänger" */}
+          <h2 className="text-2xl font-bold mb-4">Tips for Beginners</h2>{" "}
+          {/* Zwischenüberschrift für die Frage "Tips for Beginners" */}
           <p className="mb-4">
-            Anfänger sollten zunächst RPE verwenden, um ihre wahrgenommene
-            Anstrengung nach jedem Satz aufzuzeichnen. Mit zunehmender Erfahrung
-            können Sie beginnen, RPE zur Steuerung Ihrer Trainingsbelastungen zu
-            verwenden. Es ist wichtig, bei Ihren Schätzungen konservativ zu
-            bleiben, um häufiges Training bis zum Versagen zu vermeiden, was zu
-            übermäßiger Ermüdung und Beeinträchtigung des Fortschritts führen
-            kann.
+            Beginners should initially use RPE to record their perceived effort
+            after each set. As you gain experience, you can start using RPE to
+            guide your training loads. It's important to remain conservative in
+            your estimates to avoid frequent training to failure, which can lead
+            to excessive fatigue and hinder progress.
           </p>{" "}
           {/* Tipps für Anfänger zur Verwendung von RPE */}
-          <h2 className="text-2xl font-bold mb-4">
-            Fortgeschrittene Verwendung von RPE
-          </h2>{" "}
-          {/* Zwischenüberschrift für die Frage "Fortgeschrittene Verwendung von RPE" */}
+          <h2 className="text-2xl font-bold mb-4">Advanced Use of RPE</h2>{" "}
+          {/* Zwischenüberschrift für die Frage "Advanced Use of RPE" */}
           <p className="mb-4">
-            Erfahrene Heber können RPE verwenden, um ihre Trainingsprogramme zu
-            verfeinern. Durch Anpassung der Belastungen basierend auf der
-            täglichen Leistung können Heber ihre Trainings-effizienz und ihren
-            Fortschritt maximieren. RPE kann auch in Verbindung mit prozentual
-            basiertem Training verwendet werden, um einen umfassenderen Ansatz
-            zu bieten.
+            Experienced lifters can use RPE to refine their training programs.
+            By adjusting loads based on daily performance, lifters can maximize
+            their training efficiency and progress. RPE can also be used in
+            conjunction with percentage-based training to provide a more
+            comprehensive approach.
           </p>{" "}
           {/* Erklärung, wie fortgeschrittene Benutzer RPE verwenden können */}
         </div>
