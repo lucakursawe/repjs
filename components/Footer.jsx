@@ -67,7 +67,7 @@ const Footer = () => {
                 {" "}
                 {/* Listenelement */}
                 <a
-                  href="https://instagram.com/lucakursawe"
+                  href="https://instagram.com/instagram"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm hover:text-primary-orange transition-colors duration-300"
@@ -80,7 +80,7 @@ const Footer = () => {
                 {" "}
                 {/* Listenelement */}
                 <a
-                  href="https://linkedin.com/lucakursawe"
+                  href="https://linkedin.com/in/lucakursawe"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm hover:text-primary-orange transition-colors duration-300"
