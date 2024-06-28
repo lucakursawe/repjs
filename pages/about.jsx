@@ -48,7 +48,7 @@ const About = () => {
                     <FaGithub className="h-6 w-6 text-black hover:text-primary-orange duration-300" />{" "}
                   </a>
                   <a
-                    href="https://instagram.com/lucakursawe"
+                    href="https://instagram.com/instagram"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
