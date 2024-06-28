@@ -1,63 +1,78 @@
 "use client";
 
-import { supabase } from "../utils/supabase"; // Import the Supabase configuration
+import { supabase } from "../utils/supabase"; // Supabase
 import React, { useState, useRef, useEffect } from "react";
-import { useUser } from "@supabase/auth-helpers-react"; // Hook for user authentication from Supabase
-import { motion } from "framer-motion"; // Animations with Framer Motion
-import Head from "next/head"; // Head element for page metadata
-import { Line } from "react-chartjs-2"; // Charts with React Chart.js 2
-import CountUp from "react-countup"; // Number ticker for animations
+import { useUser } from "@supabase/auth-helpers-react"; // Hook für Supabase Authentifizierung
+import { motion } from "framer-motion"; // Animationen mit Framer Motion
+import Head from "next/head"; // Head-Element für SEO
+import { Line } from "react-chartjs-2"; // Chart.js für Diagramme
+import CountUp from "react-countup"; // React CountUp für animierte Zahlen
 
 export default function E1RMCalculation() {
-  const [exercise, setExercise] = useState("Squat"); // State for selected exercise
-  const [reps, setReps] = useState(""); // State for repetitions
-  const [rpe, setRpe] = useState(""); // State for RPE scale
-  const [weightKg, setWeightKg] = useState(""); // State for weight in kilograms
-  const [result, setResult] = useState(null); // State for calculation result
-  const [progress, setProgress] = useState(0); // State for calculation progress
-  const resultRef = useRef(null); // Reference for result element
-  const user = useUser(); // Currently logged-in user with Supabase authentication hook
+  const [exercise, setExercise] = useState("Squat"); // State für Übungsauswahl
+  const [reps, setReps] = useState(""); // State für Wiederholungen
+  const [rpe, setRpe] = useState(""); // State für RPE
+  const [weightKg, setWeightKg] = useState(""); // State für Gewicht in kg
+  const [result, setResult] = useState(null); // State für Ergebnis
+  const [progress, setProgress] = useState(0); // State für Fortschritt
+  const resultRef = useRef(null); // Ref für Ergebnis-Element
+  const user = useUser(); // Supabase Authentifizierung für Benutzer (optional)
 
-  // Function to handle form submission
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+const handleSubmit = async (event) => {
+  // Verhindert das Standardverhalten des Formulars, um ein Neuladen der Seite zu vermeiden
+  event.preventDefault();
 
-    // Calculate estimated 1RM
-    const e1rm = calculateE1RM(
-      parseFloat(reps),
-      parseFloat(rpe),
-      parseFloat(weightKg)
-    );
-    if (e1rm !== null) {
-      let resultMessage = `Your estimated 1RM for ${exercise} : ${e1rm.toFixed(
-        2
-      )} kg`;
-      if (user) {
-        const { data, error } = await supabase.from("e1rm").insert([
-          {
-            user_id: user.id,
-            exercise,
-            reps: parseFloat(reps),
-            rpe: parseFloat(rpe),
-            weightKg: parseFloat(weightKg),
-            e1rm: e1rm.toFixed(2),
-          },
-        ]);
-        if (error) {
-          console.error("Error saving data to database:", error);
-        } else {
-          console.log("Data successfully stored in database", data);
-        }
+  // Berechnet das geschätzte One-Rep Max (E1RM) basierend auf den eingegebenen Werten
+  const e1rm = calculateE1RM(
+    parseFloat(reps), // Konvertiert die Wiederholungen von String zu Float
+    parseFloat(rpe), // Konvertiert die RPE von String zu Float
+    parseFloat(weightKg) // Konvertiert das Gewicht von String zu Float
+  );
+
+  // Überprüft, ob die Berechnung des E1RM erfolgreich war
+  if (e1rm !== null) {
+    // Erstellt eine Ergebnisnachricht mit dem berechneten E1RM-Wert
+    let resultMessage = `Your estimated 1RM for ${exercise} : ${e1rm.toFixed(
+      2
+    )} kg`;
+
+    // Überprüft, ob der Nutzer angemeldet ist
+    if (user) {
+      // Versucht, die Daten in die Supabase-Datenbank einzufügen
+      const { data, error } = await supabase.from("e1rm").insert([
+        {
+          user_id: user.id, // Benutzer-ID aus dem aktuellen Nutzer
+          exercise, // Art der Übung
+          reps: parseFloat(reps), // Anzahl der Wiederholungen
+          rpe: parseFloat(rpe), // RPE-Wert
+          weightKg: parseFloat(weightKg), // Gewicht in Kilogramm
+          e1rm: e1rm.toFixed(2), // Berechneter E1RM-Wert, auf 2 Dezimalstellen gerundet
+        },
+      ]);
+
+      // Überprüft, ob beim Speichern der Daten ein Fehler aufgetreten ist
+      if (error) {
+        console.error("Error saving data to database:", error); // Loggt den Fehler in die Konsole
       } else {
-        resultMessage +=
-          ". Please login to review your calculated data and visualize your progress.";
+        console.log("Data successfully stored in database", data); // Bestätigt den erfolgreichen Datenbankeintrag
       }
-      setResult(e1rm);
-      setProgress((e1rm / 300) * 100); // Assuming maximum progress value is 300 kg
     } else {
-      setResult("Invalid input! Please check your inputs.");
+      // Fügt eine Nachricht hinzu, die den Nutzer auffordert, sich anzumelden
+      resultMessage +=
+        ". Please login to review your calculated data and visualize your progress.";
     }
-  };
+
+    // Setzt den Zustand des Ergebnisses mit dem berechneten E1RM-Wert
+    setResult(e1rm);
+
+    // Aktualisiert den Fortschritt basierend auf dem berechneten E1RM-Wert
+    setProgress((e1rm / 300) * 100); // Annahme: Der maximale Fortschrittswert ist 300 kg
+  } else {
+    // Setzt den Zustand des Ergebnisses mit einer Fehlermeldung
+    setResult("Invalid input! Please check your inputs."); // Meldet ungültige Eingaben
+  }
+};
+
 
   // Effect to scroll to view on result
   useEffect(() => {
@@ -66,151 +81,31 @@ export default function E1RMCalculation() {
     }
   }, [result]);
 
-  // Function to calculate 1RM based on repetitions and RPE
+  // Funktion zur Berechnung des geschätzten One-Rep Max (E1RM) basierend auf den eingegebenen Werten
   const calculateE1RM = (reps, rpe, weightKg) => {
     const rpeChart = {
-      1: {
-        10: 100,
-        9.5: 97.8,
-        9.0: 95.5,
-        8.5: 92.2,
-        8.0: 89.2,
-        7.5: 86.3,
-        7.0: 83.7,
-        6.5: 81.1,
-        6.0: 78.6,
-      },
-      2: {
-        10: 95.5,
-        9.5: 93.9,
-        9.0: 92.2,
-        8.5: 90.7,
-        8.0: 89.2,
-        7.5: 87.8,
-        7.0: 86.3,
-        6.5: 85.0,
-        6.0: 83.7,
-      },
-      3: {
-        10: 92.2,
-        9.5: 90.7,
-        9.0: 89.2,
-        8.5: 87.8,
-        8.0: 86.3,
-        7.5: 85.0,
-        7.0: 83.7,
-        6.5: 82.5,
-        6.0: 81.1,
-      },
-      4: {
-        10: 89.2,
-        9.5: 87.8,
-        9.0: 86.3,
-        8.5: 85.0,
-        8.0: 83.7,
-        7.5: 82.5,
-        7.0: 81.1,
-        6.5: 80.0,
-        6.0: 78.6,
-      },
-      5: {
-        10: 86.3,
-        9.5: 85.0,
-        9.0: 83.7,
-        8.5: 82.5,
-        8.0: 81.1,
-        7.5: 80.0,
-        7.0: 78.6,
-        6.5: 77.5,
-        6.0: 76.4,
-      },
-      6: {
-        10: 83.7,
-        9.5: 82.5,
-        9.0: 81.1,
-        8.5: 80.0,
-        8.0: 78.6,
-        7.5: 77.5,
-        7.0: 76.4,
-        6.5: 75.4,
-        6.0: 74.3,
-      },
-      7: {
-        10: 81.1,
-        9.5: 80.0,
-        9.0: 78.6,
-        8.5: 77.5,
-        8.0: 76.4,
-        7.5: 75.4,
-        7.0: 74.3,
-        6.5: 73.3,
-        6.0: 72.2,
-      },
-      8: {
-        10: 78.6,
-        9.5: 77.4,
-        9.0: 76.2,
-        8.5: 75.1,
-        8.0: 73.9,
-        7.5: 72.3,
-        7.0: 70.7,
-        6.5: 69.4,
-        6.0: 68.0,
-      },
-      9: {
-        10: 76.2,
-        9.5: 75.1,
-        9.0: 73.9,
-        8.5: 72.3,
-        8.0: 70.7,
-        7.5: 69.4,
-        7.0: 68.0,
-        6.5: 66.7,
-        6.0: 65.3,
-      },
-      10: {
-        10: 73.9,
-        9.5: 72.3,
-        9.0: 70.7,
-        8.5: 69.4,
-        8.0: 68.0,
-        7.5: 66.7,
-        7.0: 65.3,
-        6.5: 64.0,
-        6.0: 62.6,
-      },
-      11: {
-        10: 70.7,
-        9.5: 69.4,
-        9.0: 68.0,
-        8.5: 66.7,
-        8.0: 65.3,
-        7.5: 64.0,
-        7.0: 62.6,
-        6.5: 61.3,
-        6.0: 59.9,
-      },
-      12: {
-        10: 68.0,
-        9.5: 66.7,
-        9.0: 65.3,
-        8.5: 64.0,
-        8.0: 62.6,
-        7.5: 61.3,
-        7.0: 59.9,
-        6.5: 58.6,
-        6.0: 57.4,
-      },
+      1: { 10: 100, 9.5: 97.8, 9.0: 95.5, 8.5: 92.2, 8.0: 89.2, 7.5: 86.3, 7.0: 83.7, 6.5: 81.1, 6.0: 78.6 },
+      2: { 10: 95.5, 9.5: 93.9, 9.0: 92.2, 8.5: 90.7, 8.0: 89.2, 7.5: 87.8, 7.0: 86.3, 6.5: 85.0, 6.0: 83.7 },
+      3: { 10: 92.2, 9.5: 90.7, 9.0: 89.2, 8.5: 87.8, 8.0: 86.3, 7.5: 85.0, 7.0: 83.7, 6.5: 82.5, 6.0: 81.1 },
+      4: { 10: 89.2, 9.5: 87.8, 9.0: 86.3, 8.5: 85.0, 8.0: 83.7, 7.5: 82.5, 7.0: 81.1, 6.5: 80.0, 6.0: 78.6 },
+      5: { 10: 86.3, 9.5: 85.0, 9.0: 83.7, 8.5: 82.5, 8.0: 81.1, 7.5: 80.0, 7.0: 78.6, 6.5: 77.5, 6.0: 76.4 },
+      6: { 10: 83.7, 9.5: 82.5, 9.0: 81.1, 8.5: 80.0, 8.0: 78.6, 7.5: 77.5, 7.0: 76.4, 6.5: 75.4, 6.0: 74.3 },
+      7: { 10: 81.1, 9.5: 80.0, 9.0: 78.6, 8.5: 77.5, 8.0: 76.4, 7.5: 75.4, 7.0: 74.3, 6.5: 73.3, 6.0: 72.2 },
+      8: { 10: 78.6, 9.5: 77.4, 9.0: 76.2, 8.5: 75.1, 8.0: 73.9, 7.5: 72.3, 7.0: 70.7, 6.5: 69.4, 6.0: 68.0 },
+      9: { 10: 76.2, 9.5: 75.1, 9.0: 73.9, 8.5: 72.3, 8.0: 70.7, 7.5: 69.4, 7.0: 68.0, 6.5: 66.7, 6.0: 65.3 },
+      10: { 10: 73.9, 9.5: 72.3, 9.0: 70.7, 8.5: 69.4, 8.0: 68.0, 7.5: 66.7, 7.0: 65.3, 6.5: 64.0, 6.0: 62.6 },
+      11: { 10: 70.7, 9.5: 69.4, 9.0: 68.0, 8.5: 66.7, 8.0: 65.3, 7.5: 64.0, 7.0: 62.6, 6.5: 61.3, 6.0: 59.9 },
+      12: { 10: 68.0, 9.5: 66.7, 9.0: 65.3, 8.5: 64.0, 8.0: 62.6, 7.5: 61.3, 7.0: 59.9, 6.5: 58.6, 6.0: 57.4 },
     };
 
-    rpe = parseFloat(rpe);
-    if (rpeChart[reps] && rpeChart[reps][rpe]) {
-      const e1rmPercentage = rpeChart[reps][rpe];
-      const e1rmValue = weightKg / (e1rmPercentage / 100);
-      // Rounded to 2.5 kg increments
-      return e1rmValue - (e1rmValue % 2.5);
-    } else {
-      return null;
+    rpe = parseFloat(rpe); // Konvertiert die RPE in eine Gleitkommazahl
+    if (rpeChart[reps] && rpeChart[reps][rpe]) { // Überprüft, ob die RPE-Werte für die Wiederholungen vorhanden sind
+      const e1rmPercentage = rpeChart[reps][rpe]; // Holt den Prozentsatz des E1RM aus der Tabelle 
+      const e1rmValue = weightKg / (e1rmPercentage / 100); // Berechnet das E1RM basierend auf dem Prozentsatz
+      // Rundet das E1RM auf das nächste Vielfache von 2,5 kg
+      return e1rmValue - (e1rmValue % 2.5); // Gibt das berechnete E1RM zurück
+    } else { 
+      return null; 
     }
   };
 
@@ -341,7 +236,6 @@ export default function E1RMCalculation() {
                 ></div>
               </div>
               <div className="flex items-center justify-center mb-4">
-                {/* Additional content for result if any */}
               </div>
             </motion.div>
           )}
